@@ -4,3 +4,12 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
+serde = { version = "1.0.216", features = ["derive"] }
+jsonwebtoken = { version = "9.3.0" }
+serde_json = "1.0.134"
+wasm-bindgen = { version = "0.2.99", features = ["serde-serialize"] }
+serde-wasm-bindgen = {version = "0.6.5"}
+base64 = "0.13"
+[lib]
+crate-type = ["cdylib", "rlib"]
+

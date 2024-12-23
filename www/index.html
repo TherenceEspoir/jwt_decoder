@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JWT Decoder</title>
+</head>
+<body>
+<h1>JWT Decoder</h1>
+<textarea id="jwt-input" placeholder="Colle ton JWT ici" rows="5" cols="50"></textarea>
+<br>
+<button onclick="decodeJWT()">Decode JWT</button>
+<pre id="result"></pre>
+
+<script type="module">
+    import init, { decode_jwt } from "./pkg/jwt_decoder.js";  // Assure-toi que le chemin est correct
+
+    /*
+    async function run() {
+        await init(); // Initialisation du module WASM
+    }
+
+    run();
+
+    function decodeJwt() {
+        const jwt = document.getElementById("jwt-input").value;
+
+        // Appeler la fonction `decode_jwt` du module WASM pour décoder le JWT
+        const result = decode_jwt(jwt);  // Résultat du WASM : `Result<JsValue, String>`
+
+        if (result instanceof Error) {
+            // En cas d'erreur, afficher l'erreur dans le champ de sortie
+            document.getElementById("output").textContent = "Error decoding JWT: " + result.message;
+        } else {
+            // En cas de succès, afficher l'objet JSON
+            const decodedJson = JSON.stringify(result, null, 2);
+            document.getElementById("output").textContent = decodedJson;
+        }
+    }
+
+    */
+
+
+    // Fonction pour initialiser le module WASM et définir decodeJWT
+    async function initialize() {
+        // Initialisation du module WASM
+        await init();
+
+        // Définir la fonction decodeJWT et l'attacher à window
+        window.decodeJWT = function() {
+            const token = document.getElementById("jwt-input").value;
+            console.log(token);
+            const result = decode_jwt(token);
+            console.log(result);
+            document.getElementById("result").textContent = result;
+        };
+    }
+
+    // Appeler la fonction d'initialisation
+    initialize();
+
+</script>
+</body>
+</html>
